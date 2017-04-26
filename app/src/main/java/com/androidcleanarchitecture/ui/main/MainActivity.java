@@ -1,8 +1,9 @@
-package com.androidcleanarchitecture;
+package com.androidcleanarchitecture.ui.main;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.androidcleanarchitecture.R;
 import com.androidcleanarchitecture.utils.Layout;
 
 public class MainActivity extends AppCompatActivity {

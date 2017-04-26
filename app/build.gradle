@@ -36,6 +36,7 @@ dependencies {
     final RETROFIT_VERSION = '2.2.0'
     final OKHTTP_VERSION = '3.7.0'
     final TIMBER_VERSION = '4.5.1'
+    final AUTOVALUE_VERSION = '1.4.1'
 
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -60,11 +61,16 @@ dependencies {
 //    Retrofit
     compile "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
     compile "com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION"
+    compile "com.squareup.retrofit2:adapter-rxjava:$RETROFIT_VERSION"
 
 //    OkHttp 3
     compile "com.squareup.okhttp3:logging-interceptor:$OKHTTP_VERSION"
 
 //    Timber
     compile "com.jakewharton.timber:timber:$TIMBER_VERSION"
+
+//    AutoValue
+    compile "com.google.auto.value:auto-value:$AUTOVALUE_VERSION"
+    apt "com.google.auto.value:auto-value:$AUTOVALUE_VERSION"
 
 }
