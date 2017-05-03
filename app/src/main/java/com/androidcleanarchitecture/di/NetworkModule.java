@@ -1,11 +1,17 @@
-package com.androidcleanarchitecture.data.rest;
+package com.androidcleanarchitecture.di;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import com.androidcleanarchitecture.BuildConfig;
+import com.androidcleanarchitecture.data.rest.RestService;
 
 import java.util.concurrent.TimeUnit;
 
+import javax.inject.Singleton;
+
+import dagger.Module;
+import dagger.Provides;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -13,12 +19,22 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Created by Pavel.Shkaran on 4/26/2017.
+ * Created by Pavel.Shkaran on 5/3/2017.
  */
+@Module
+public class NetworkModule {
 
-public class RestApi {
+    private final static String BASE_URL = "https://jsonplaceholder.typicode.com";
 
-    public static RestService newRestService() {
+    @Singleton
+    @Provides
+    Gson provideGson() {
+        return new GsonBuilder().create();
+    }
+
+    @Singleton
+    @Provides
+    OkHttpClient provideOkHttpClient() {
         OkHttpClient okHttpClient;
         okHttpClient = new OkHttpClient.Builder()
                 .readTimeout(10, TimeUnit.SECONDS)
@@ -27,15 +43,20 @@ public class RestApi {
                         HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE))
                 .build();
 
+        return okHttpClient;
+    }
+
+    @Singleton
+    @Provides
+    RestService provideRestService(OkHttpClient okHttpClient, Gson gson) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://jsonplaceholder.typicode.com")
+                .baseUrl(BASE_URL)
                 .client(okHttpClient)
-                .addConverterFactory(GsonConverterFactory.create(new Gson()))
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
 
         return retrofit.create(RestService.class);
     }
-
 
 }

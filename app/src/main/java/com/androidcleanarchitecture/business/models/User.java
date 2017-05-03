@@ -8,14 +8,14 @@ import com.google.auto.value.AutoValue;
 @AutoValue
 public abstract class User {
 
-    abstract short id();
-    abstract String name();
-    abstract String username();
-    abstract String email();
-    abstract Address address();
-    abstract String phone();
-    abstract String website();
-    abstract Company company();
+    public abstract short id();
+    public abstract String name();
+    public abstract String username();
+    public abstract String email();
+    public abstract Address address();
+    public abstract String phone();
+    public abstract String website();
+    public abstract Company company();
 
     public static Builder builder() {
         return new AutoValue_User.Builder();
