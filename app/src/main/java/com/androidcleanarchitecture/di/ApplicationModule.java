@@ -3,7 +3,11 @@ package com.androidcleanarchitecture.di;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import android.content.Context;
+import android.support.annotation.NonNull;
+
 import com.androidcleanarchitecture.BuildConfig;
+import com.androidcleanarchitecture.data.db.RealmService;
 import com.androidcleanarchitecture.data.rest.RestService;
 
 import java.util.concurrent.TimeUnit;
@@ -19,12 +23,29 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Created by Pavel.Shkaran on 5/3/2017.
+ * Created by Pavel.Shkaran on 5/4/2017.
  */
 @Module
-public class NetworkModule {
+public class ApplicationModule {
 
+    private final Context applicationContext;
     private final static String BASE_URL = "https://jsonplaceholder.typicode.com";
+
+    public ApplicationModule(@NonNull Context applicationContext) {
+        this.applicationContext = applicationContext;
+    }
+
+    @Provides
+    @Singleton
+    Context provideContext() {
+        return applicationContext;
+    }
+
+    @Provides
+    @Singleton
+    RealmService providesRealmService() {
+        return new RealmService();
+    }
 
     @Singleton
     @Provides
@@ -58,5 +79,4 @@ public class NetworkModule {
 
         return retrofit.create(RestService.class);
     }
-
 }

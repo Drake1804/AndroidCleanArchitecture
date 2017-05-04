@@ -1,8 +1,7 @@
 package com.androidcleanarchitecture.ui.users;
 
-import com.androidcleanarchitecture.business.users.IUsersInteractor;
+import com.androidcleanarchitecture.business.interactors.IUsersInteractor;
 
-import butterknife.ButterKnife;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;

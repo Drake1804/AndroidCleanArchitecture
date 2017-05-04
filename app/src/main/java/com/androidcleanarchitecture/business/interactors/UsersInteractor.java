@@ -1,4 +1,4 @@
-package com.androidcleanarchitecture.business.users;
+package com.androidcleanarchitecture.business.interactors;
 
 import com.androidcleanarchitecture.data.models.UserEntity;
 import com.androidcleanarchitecture.data.repositories.users.IUsersRepository;
