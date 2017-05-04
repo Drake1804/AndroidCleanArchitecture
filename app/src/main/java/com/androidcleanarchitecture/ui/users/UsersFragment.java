@@ -2,6 +2,7 @@ package com.androidcleanarchitecture.ui.users;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,8 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.androidcleanarchitecture.ACAApplication;
 import com.androidcleanarchitecture.R;
 import com.androidcleanarchitecture.business.models.User;
+import com.androidcleanarchitecture.di.users.UsersModule;
 
 import java.util.List;
 
@@ -34,17 +37,25 @@ public class UsersFragment extends Fragment implements IUsersView {
     private Unbinder unbinder;
     private UsersAdapter adapter;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ACAApplication.get(getContext())
+                .applicationComponent()
+                .plus(new UsersModule())
+                .inject(this);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_users, container, false);
-        ButterKnife.bind(getActivity());
+        ButterKnife.bind(getActivity(), view);
         unbinder = ButterKnife.bind(getActivity(), view);
         usersPresenter.bindView(this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         adapter = new UsersAdapter();
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         usersPresenter.loadUsers();
 
         return view;

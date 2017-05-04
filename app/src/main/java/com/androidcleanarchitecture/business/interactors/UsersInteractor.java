@@ -16,6 +16,10 @@ public class UsersInteractor implements IUsersInteractor {
     private IUsersRepository usersRepository;
 
 
+    public UsersInteractor(IUsersRepository usersRepository) {
+        this.usersRepository = usersRepository;
+    }
+
     @Override
     public Observable<List<UserEntity>> getUsers() {
         return usersRepository.getUsers();

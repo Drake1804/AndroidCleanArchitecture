@@ -1,4 +1,4 @@
-package com.androidcleanarchitecture.di;
+package com.androidcleanarchitecture.di.application;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

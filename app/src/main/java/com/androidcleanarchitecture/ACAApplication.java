@@ -3,10 +3,13 @@ package com.androidcleanarchitecture;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.os.Process;
+import android.support.annotation.NonNull;
 import android.support.multidex.MultiDexApplication;
 import android.text.TextUtils;
 
-import com.androidcleanarchitecture.di.ApplicationComponent;
+import com.androidcleanarchitecture.di.application.ApplicationComponent;
+import com.androidcleanarchitecture.di.application.ApplicationModule;
+import com.androidcleanarchitecture.di.application.DaggerApplicationComponent;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -18,7 +21,10 @@ import io.realm.RealmConfiguration;
 public class ACAApplication extends MultiDexApplication {
 
     private static RealmConfiguration config;
-    private ApplicationComponent mApplicationComponent;
+
+    @SuppressWarnings("NullableProblems")
+    @NonNull
+    private ApplicationComponent appComponent;
 
     public static ACAApplication get(Context context) {
         return (ACAApplication) context.getApplicationContext();
@@ -47,14 +53,22 @@ public class ACAApplication extends MultiDexApplication {
         Realm.compactRealm(config);
     }
 
-    public void setComponent(ApplicationComponent applicationComponent) {
-        mApplicationComponent = applicationComponent;
-    }
 
     @Override
     public void onCreate() {
         super.onCreate();
-
+        appComponent = prepareAppComponent().build();
         initRealm(this);
+    }
+
+    @NonNull
+    private DaggerApplicationComponent.Builder prepareAppComponent() {
+        return DaggerApplicationComponent.builder()
+                .applicationModule(new ApplicationModule(this));
+    }
+
+    @NonNull
+    public ApplicationComponent applicationComponent() {
+        return appComponent;
     }
 }
