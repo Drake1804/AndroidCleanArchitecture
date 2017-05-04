@@ -31,7 +31,7 @@ public class UsersFragment extends Fragment implements IUsersView {
     @Inject
     IUsersPresenter usersPresenter;
 
-    @BindView(R.id.recyclerView)
+
     RecyclerView recyclerView;
 
     private Unbinder unbinder;
@@ -51,6 +51,7 @@ public class UsersFragment extends Fragment implements IUsersView {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_users, container, false);
         ButterKnife.bind(getActivity(), view);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         unbinder = ButterKnife.bind(getActivity(), view);
         usersPresenter.bindView(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));

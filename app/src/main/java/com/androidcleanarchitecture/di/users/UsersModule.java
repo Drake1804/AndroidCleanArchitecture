@@ -4,6 +4,7 @@ import com.androidcleanarchitecture.business.interactors.IUsersInteractor;
 import com.androidcleanarchitecture.business.interactors.UsersInteractor;
 import com.androidcleanarchitecture.data.repositories.users.IUsersRepository;
 import com.androidcleanarchitecture.data.repositories.users.UsersRepository;
+import com.androidcleanarchitecture.data.rest.RestService;
 import com.androidcleanarchitecture.ui.users.IUsersPresenter;
 import com.androidcleanarchitecture.ui.users.UsersPresenter;
 

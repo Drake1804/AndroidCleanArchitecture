@@ -5,6 +5,9 @@ import com.androidcleanarchitecture.data.rest.RestService;
 
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import io.reactivex.Observable;
 
 /**
@@ -13,6 +16,7 @@ import io.reactivex.Observable;
 
 public class UsersRepository implements IUsersRepository {
 
+    @Inject
     RestService restService;
 
     @Override

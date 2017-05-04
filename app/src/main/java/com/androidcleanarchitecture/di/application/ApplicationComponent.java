@@ -1,5 +1,7 @@
 package com.androidcleanarchitecture.di.application;
 
+import com.androidcleanarchitecture.data.db.RealmService;
+import com.androidcleanarchitecture.data.rest.RestService;
 import com.androidcleanarchitecture.di.users.UsersComponent;
 import com.androidcleanarchitecture.di.users.UsersModule;
 
@@ -17,5 +19,9 @@ import dagger.Component;
 public interface ApplicationComponent {
 
     UsersComponent plus(UsersModule usersModule);
+
+    RestService restService();
+
+    RealmService realmService();
 
 }

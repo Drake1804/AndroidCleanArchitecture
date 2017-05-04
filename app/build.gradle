@@ -80,7 +80,7 @@ dependencies {
 
 //    Butter Knife
     compile "com.jakewharton:butterknife:$BUTTER_KNIFE_VERSION"
-    annotationProcessor "com.jakewharton:butterknife-compiler:$BUTTER_KNIFE_VERSION"
+    apt "com.jakewharton:butterknife-compiler:$BUTTER_KNIFE_VERSION"
 
 //    MultiDex
     compile "com.android.support:multidex:$MULTIDEX_VERSION"
