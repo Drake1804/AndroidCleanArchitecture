@@ -1,7 +1,5 @@
 package com.androidcleanarchitecture.di.application;
 
-import com.androidcleanarchitecture.data.db.RealmService;
-import com.androidcleanarchitecture.data.rest.RestService;
 import com.androidcleanarchitecture.di.users.UsersComponent;
 import com.androidcleanarchitecture.di.users.UsersModule;
 
@@ -14,14 +12,10 @@ import dagger.Component;
  */
 
 
-@Component(modules = {ApplicationModule.class})
+@Component(modules = {ApplicationModule.class, NetworkModule.class, DbModule.class})
 @Singleton
 public interface ApplicationComponent {
 
-    UsersComponent plus(UsersModule usersModule);
-
-    RestService restService();
-
-    RealmService realmService();
+    UsersComponent plusUsersComponent(UsersModule usersModule);
 
 }

@@ -31,7 +31,6 @@ public class UsersFragment extends Fragment implements IUsersView {
     @Inject
     IUsersPresenter usersPresenter;
 
-
     RecyclerView recyclerView;
 
     private Unbinder unbinder;
@@ -40,10 +39,7 @@ public class UsersFragment extends Fragment implements IUsersView {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ACAApplication.get(getContext())
-                .applicationComponent()
-                .plus(new UsersModule())
-                .inject(this);
+        ACAApplication.get(getActivity()).getComponent().plusUsersComponent(new UsersModule()).inject(this);
     }
 
     @Override

@@ -8,7 +8,7 @@ import io.realm.Realm;
 /**
  * Created by Pavel.Shkaran on 5/4/2017.
  */
-
+@Deprecated
 public class RealmRepository {
 
     private Lock lock;

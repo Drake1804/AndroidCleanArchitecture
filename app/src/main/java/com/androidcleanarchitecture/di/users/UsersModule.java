@@ -19,8 +19,8 @@ public class UsersModule {
 
     @Provides
     @UsersScope
-    IUsersRepository provideIUsersRepository() {
-        return new UsersRepository();
+    IUsersRepository provideIUsersRepository(RestService restService) {
+        return new UsersRepository(restService);
     }
 
     @Provides

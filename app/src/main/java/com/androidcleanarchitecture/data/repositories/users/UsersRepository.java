@@ -5,10 +5,8 @@ import com.androidcleanarchitecture.data.rest.RestService;
 
 import java.util.List;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import io.reactivex.Observable;
+
 
 /**
  * Created by Pavel.Shkaran on 4/27/2017.
@@ -16,8 +14,11 @@ import io.reactivex.Observable;
 
 public class UsersRepository implements IUsersRepository {
 
-    @Inject
     RestService restService;
+
+    public UsersRepository(RestService restService) {
+        this.restService = restService;
+    }
 
     @Override
     public Observable<List<UserEntity>> getUsers() {

@@ -15,7 +15,6 @@ public class UsersInteractor implements IUsersInteractor {
 
     private IUsersRepository usersRepository;
 
-
     public UsersInteractor(IUsersRepository usersRepository) {
         this.usersRepository = usersRepository;
     }

@@ -8,6 +8,7 @@ import javax.inject.Singleton;
 /**
  * Created by Pavel.Shkaran on 5/4/2017.
  */
+@Deprecated
 @Singleton
 public class RealmService extends RealmRepository {
 
