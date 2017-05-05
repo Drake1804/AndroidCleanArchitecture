@@ -7,6 +7,8 @@ import android.support.multidex.MultiDexApplication;
 import com.androidcleanarchitecture.di.application.ApplicationComponent;
 import com.androidcleanarchitecture.di.application.ApplicationModule;
 import com.androidcleanarchitecture.di.application.DaggerApplicationComponent;
+import com.androidcleanarchitecture.di.users.UsersComponent;
+import com.androidcleanarchitecture.di.users.UsersModule;
 
 /**
  * Created by Pavel.Shkaran on 4/26/2017.
@@ -15,6 +17,7 @@ import com.androidcleanarchitecture.di.application.DaggerApplicationComponent;
 public class ACAApplication extends MultiDexApplication {
 
     private ApplicationComponent applicationComponent;
+    private UsersComponent usersComponent;
 
 
     @Override
@@ -30,7 +33,11 @@ public class ACAApplication extends MultiDexApplication {
         return (ACAApplication) context.getApplicationContext();
     }
 
-    public ApplicationComponent getComponent() {
-        return applicationComponent;
+    public UsersComponent plusUsersComponent() {
+        if(usersComponent == null) {
+            usersComponent = applicationComponent.plusUsersComponent(new UsersModule());
+        }
+
+        return usersComponent;
     }
 }

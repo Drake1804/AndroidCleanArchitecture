@@ -13,13 +13,11 @@ import android.view.ViewGroup;
 import com.androidcleanarchitecture.ACAApplication;
 import com.androidcleanarchitecture.R;
 import com.androidcleanarchitecture.business.models.User;
-import com.androidcleanarchitecture.di.users.UsersModule;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -39,7 +37,7 @@ public class UsersFragment extends Fragment implements IUsersView {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ACAApplication.get(getActivity()).getComponent().plusUsersComponent(new UsersModule()).inject(this);
+        ACAApplication.get(getActivity()).plusUsersComponent().inject(this);
     }
 
     @Override
