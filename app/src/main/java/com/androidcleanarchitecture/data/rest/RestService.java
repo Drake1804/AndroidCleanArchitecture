@@ -1,7 +1,6 @@
 package com.androidcleanarchitecture.data.rest;
 
-import com.androidcleanarchitecture.data.models.UserEntity;
-
+import com.androidcleanarchitecture.data.rest.models.UserModel;
 
 import java.util.List;
 
@@ -15,5 +14,5 @@ import retrofit2.http.GET;
 public interface RestService {
 
     @GET("/users")
-    Observable<List<UserEntity>> getUsers();
+    Observable<List<UserModel>> getUsers();
 }

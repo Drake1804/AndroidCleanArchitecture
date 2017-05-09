@@ -2,6 +2,7 @@ package com.androidcleanarchitecture.di.users;
 
 import com.androidcleanarchitecture.business.interactors.IUsersInteractor;
 import com.androidcleanarchitecture.business.interactors.UsersInteractor;
+import com.androidcleanarchitecture.data.db.DbService;
 import com.androidcleanarchitecture.data.repositories.users.IUsersRepository;
 import com.androidcleanarchitecture.data.repositories.users.UsersRepository;
 import com.androidcleanarchitecture.data.rest.RestService;
@@ -10,6 +11,7 @@ import com.androidcleanarchitecture.ui.users.UsersPresenter;
 
 import dagger.Module;
 import dagger.Provides;
+import io.realm.Realm;
 
 /**
  * Created by Pavel.Shkaran on 5/4/2017.
@@ -19,8 +21,8 @@ public class UsersModule {
 
     @Provides
     @UsersScope
-    IUsersRepository provideIUsersRepository(RestService restService) {
-        return new UsersRepository(restService);
+    IUsersRepository provideIUsersRepository(RestService restService, DbService dbService) {
+        return new UsersRepository(restService, dbService);
     }
 
     @Provides

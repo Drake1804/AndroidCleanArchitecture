@@ -39,9 +39,7 @@ public class UsersPresenter implements IUsersPresenter {
         Disposable loadUsersDisposable = usersInteractor.getUsers()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(userEntities -> {
-                    usersView.showUsers(userEntities);
-                });
+                .subscribe(userEntities -> usersView.showUsers(userEntities));
         compositeDisposable.add(loadUsersDisposable);
 
     }

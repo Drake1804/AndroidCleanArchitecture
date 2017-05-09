@@ -22,7 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by Pavel.Shkaran on 5/5/2017.
  */
 @Module
-public class NetworkModule {
+class NetworkModule {
 
     private final static String BASE_URL = "https://jsonplaceholder.typicode.com";
 

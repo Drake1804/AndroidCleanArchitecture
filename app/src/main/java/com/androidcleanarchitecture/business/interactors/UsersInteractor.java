@@ -4,7 +4,7 @@ import com.androidcleanarchitecture.business.models.Address;
 import com.androidcleanarchitecture.business.models.Company;
 import com.androidcleanarchitecture.business.models.Geo;
 import com.androidcleanarchitecture.business.models.User;
-import com.androidcleanarchitecture.data.models.UserEntity;
+import com.androidcleanarchitecture.data.db.models.UserEntity;
 import com.androidcleanarchitecture.data.repositories.users.IUsersRepository;
 
 import java.util.ArrayList;
@@ -28,8 +28,7 @@ public class UsersInteractor implements IUsersInteractor {
     @Override
     public Observable<List<User>> getUsers() {
         return usersRepository
-                .getUsers()
-                .map(this::convert);
+                .getUsers();
     }
 
 

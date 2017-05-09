@@ -1,4 +1,4 @@
-package com.androidcleanarchitecture.data.models;
+package com.androidcleanarchitecture.data.db.models;
 
 import io.realm.RealmObject;
 

@@ -1,7 +1,9 @@
 package com.androidcleanarchitecture.data.repositories.users;
 
-import com.androidcleanarchitecture.data.models.UserEntity;
+import com.androidcleanarchitecture.business.models.User;
+import com.androidcleanarchitecture.data.db.DbService;
 import com.androidcleanarchitecture.data.rest.RestService;
+import com.androidcleanarchitecture.data.rest.mapper.UserRestMapper;
 
 import java.util.List;
 
@@ -15,14 +17,16 @@ import io.reactivex.Observable;
 public class UsersRepository implements IUsersRepository {
 
     RestService restService;
+    DbService dbService;
 
-    public UsersRepository(RestService restService) {
+    public UsersRepository(RestService restService, DbService dbService) {
         this.restService = restService;
+        this.dbService = dbService;
     }
 
     @Override
-    public Observable<List<UserEntity>> getUsers() {
-        // get data from db or rest
-        return restService.getUsers();
+    public Observable<List<User>> getUsers() {
+        return Observable.concat(restService.getUsers().map(UserRestMapper::convert), dbService.getUsers());
     }
+
 }
