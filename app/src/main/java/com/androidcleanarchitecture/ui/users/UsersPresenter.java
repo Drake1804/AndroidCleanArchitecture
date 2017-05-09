@@ -40,7 +40,7 @@ public class UsersPresenter implements IUsersPresenter {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(userEntities -> {
-
+                    usersView.showUsers(userEntities);
                 });
         compositeDisposable.add(loadUsersDisposable);
 

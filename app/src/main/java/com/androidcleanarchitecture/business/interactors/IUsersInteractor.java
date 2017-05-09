@@ -1,6 +1,6 @@
 package com.androidcleanarchitecture.business.interactors;
 
-import com.androidcleanarchitecture.data.models.UserEntity;
+import com.androidcleanarchitecture.business.models.User;
 
 import java.util.List;
 
@@ -12,6 +12,6 @@ import io.reactivex.Observable;
 
 public interface IUsersInteractor {
 
-    Observable<List<UserEntity>> getUsers();
+    Observable<List<User>> getUsers();
 
 }

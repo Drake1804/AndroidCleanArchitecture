@@ -19,7 +19,7 @@ public class UserMapper extends Mapper<User, UserEntity> {
 
     private static final String EMPTY_STRING = "";
 
-    @Inject
+
     public UserMapper() {
     }
 
