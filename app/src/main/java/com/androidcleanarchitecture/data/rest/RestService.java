@@ -1,18 +1,29 @@
 package com.androidcleanarchitecture.data.rest;
 
-import com.androidcleanarchitecture.data.rest.models.UserModel;
+import com.androidcleanarchitecture.business.models.User;
+import com.androidcleanarchitecture.data.rest.mapper.UserRestMapper;
+
+import org.mockito.Mock;
 
 import java.util.List;
 
 import io.reactivex.Observable;
-import retrofit2.http.GET;
 
 /**
- * Created by Pavel.Shkaran on 4/26/2017.
+ * Created by drake1804 on 5/9/17.
  */
 
-public interface RestService {
+public class RestService {
 
-    @GET("/users")
-    Observable<List<UserModel>> getUsers();
+    @Mock
+    private RestApi restApi;
+
+    public RestService(RestApi restApi) {
+        this.restApi = restApi;
+    }
+
+    public Observable<List<User>> getUsers() {
+        return restApi.getUsers().map(UserRestMapper::convert);
+    }
+
 }

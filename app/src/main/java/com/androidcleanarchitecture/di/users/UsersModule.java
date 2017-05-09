@@ -5,13 +5,13 @@ import com.androidcleanarchitecture.business.interactors.UsersInteractor;
 import com.androidcleanarchitecture.data.db.DbService;
 import com.androidcleanarchitecture.data.repositories.users.IUsersRepository;
 import com.androidcleanarchitecture.data.repositories.users.UsersRepository;
+import com.androidcleanarchitecture.data.rest.RestApi;
 import com.androidcleanarchitecture.data.rest.RestService;
 import com.androidcleanarchitecture.ui.users.IUsersPresenter;
 import com.androidcleanarchitecture.ui.users.UsersPresenter;
 
 import dagger.Module;
 import dagger.Provides;
-import io.realm.Realm;
 
 /**
  * Created by Pavel.Shkaran on 5/4/2017.

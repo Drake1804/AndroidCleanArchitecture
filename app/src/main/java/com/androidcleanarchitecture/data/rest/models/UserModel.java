@@ -24,4 +24,18 @@ public class UserModel {
     public String website;
 
     public CompanyModel company;
+
+    public UserModel() {
+    }
+
+    public UserModel(short id, String name, String username, String email, AddressModel address, String phone, String website, CompanyModel company) {
+        this.id = id;
+        this.name = name;
+        this.username = username;
+        this.email = email;
+        this.address = address;
+        this.phone = phone;
+        this.website = website;
+        this.company = company;
+    }
 }

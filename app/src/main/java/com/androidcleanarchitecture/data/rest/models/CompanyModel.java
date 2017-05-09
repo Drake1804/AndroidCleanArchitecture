@@ -11,4 +11,13 @@ public class CompanyModel {
     public String catchPhrase;
 
     public String bs;
+
+    public CompanyModel() {
+    }
+
+    public CompanyModel(String name, String catchPhrase, String bs) {
+        this.name = name;
+        this.catchPhrase = catchPhrase;
+        this.bs = bs;
+    }
 }

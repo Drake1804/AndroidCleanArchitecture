@@ -1,10 +1,11 @@
 package com.androidcleanarchitecture.di.application;
 
+import com.androidcleanarchitecture.data.rest.RestApi;
+import com.androidcleanarchitecture.data.rest.RestService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import com.androidcleanarchitecture.BuildConfig;
-import com.androidcleanarchitecture.data.rest.RestService;
 
 import java.util.concurrent.TimeUnit;
 
@@ -48,7 +49,7 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    RestService provideRestService(OkHttpClient okHttpClient, Gson gson) {
+    RestApi provideRestApi(OkHttpClient okHttpClient, Gson gson) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(okHttpClient)
@@ -56,6 +57,12 @@ class NetworkModule {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
 
-        return retrofit.create(RestService.class);
+        return retrofit.create(RestApi.class);
+    }
+
+    @Singleton
+    @Provides
+    RestService provideRestService(RestApi restApi) {
+        return new RestService(restApi);
     }
 }

@@ -15,4 +15,15 @@ public class AddressModel {
     public String zipcode;
 
     public GeoModel geo;
+
+    public AddressModel() {
+    }
+
+    public AddressModel(String street, String suite, String city, String zipcode, GeoModel geo) {
+        this.street = street;
+        this.suite = suite;
+        this.city = city;
+        this.zipcode = zipcode;
+        this.geo = geo;
+    }
 }
