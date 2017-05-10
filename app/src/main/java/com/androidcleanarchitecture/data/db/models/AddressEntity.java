@@ -20,4 +20,12 @@ public class AddressEntity extends RealmObject {
 
     public AddressEntity() {
     }
+
+    public AddressEntity(String street, String suite, String city, String zipcode, GeoEntity geo) {
+        this.street = street;
+        this.suite = suite;
+        this.city = city;
+        this.zipcode = zipcode;
+        this.geo = geo;
+    }
 }

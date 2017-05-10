@@ -16,4 +16,10 @@ public class CompanyEntity extends RealmObject {
 
     public CompanyEntity() {
     }
+
+    public CompanyEntity(String name, String catchPhrase, String bs) {
+        this.name = name;
+        this.catchPhrase = catchPhrase;
+        this.bs = bs;
+    }
 }

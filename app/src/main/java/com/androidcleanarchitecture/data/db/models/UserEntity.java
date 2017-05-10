@@ -30,4 +30,17 @@ public class UserEntity extends RealmObject {
 
     public UserEntity() {
     }
+
+    public UserEntity(short id, String name, String username, String email, AddressEntity address,
+                      String phone, String website, CompanyEntity company, long createdAt) {
+        this.id = id;
+        this.name = name;
+        this.username = username;
+        this.email = email;
+        this.address = address;
+        this.phone = phone;
+        this.website = website;
+        this.company = company;
+        this.createdAt = createdAt;
+    }
 }

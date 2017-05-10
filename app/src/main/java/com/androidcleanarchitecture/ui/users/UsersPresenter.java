@@ -39,8 +39,6 @@ public class UsersPresenter implements IUsersPresenter {
     public void loadUsers() {
         usersView.showProgress();
         Disposable loadUsersDisposable = usersInteractor.getUsers()
-                .subscribeOn(Schedulers.io())
-                .retryWhen(new RetryWithDelay(3, 1000))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(userEntities -> usersView.showUsers(userEntities),
                         throwable -> Timber.e(throwable.getMessage()));

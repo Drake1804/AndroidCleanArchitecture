@@ -7,6 +7,8 @@ import com.androidcleanarchitecture.data.rest.RestService;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.Scheduler;
+import io.reactivex.schedulers.Schedulers;
 
 
 /**
@@ -15,8 +17,8 @@ import io.reactivex.Observable;
 
 public class UsersRepository implements IUsersRepository {
 
-    RestService restService;
-    DbService dbService;
+    private RestService restService;
+    private DbService dbService;
 
     public UsersRepository(RestService restService, DbService dbService) {
         this.restService = restService;
@@ -25,6 +27,18 @@ public class UsersRepository implements IUsersRepository {
 
     @Override
     public Observable<List<User>> getUsers() {
-        return restService.getUsers();
+        Observable<List<User>> usersDb = dbService.getUsers().subscribeOn(Schedulers.computation());
+        Observable<List<User>> usersRest = restService.getUsers()
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.computation())
+                .map(users -> {
+                    Observable.create(observableEmitter -> {
+                        dbService.saveUsers(users);
+                        observableEmitter.onComplete();
+                    }).subscribe();
+
+                    return users;
+                });
+        return Observable.concat(usersDb, usersRest);
     }
 }

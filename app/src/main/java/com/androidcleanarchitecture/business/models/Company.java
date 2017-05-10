@@ -8,9 +8,9 @@ import com.google.auto.value.AutoValue;
 @AutoValue
 public abstract class Company {
 
-    abstract String name();
-    abstract String catchPhrase();
-    abstract String bs();
+    public abstract String name();
+    public abstract String catchPhrase();
+    public abstract String bs();
 
     public static Builder builder() {
         return new AutoValue_Company.Builder();

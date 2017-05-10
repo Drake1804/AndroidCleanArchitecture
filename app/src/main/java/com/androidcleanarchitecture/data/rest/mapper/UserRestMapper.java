@@ -5,6 +5,9 @@ import com.androidcleanarchitecture.business.models.Company;
 import com.androidcleanarchitecture.business.models.Geo;
 import com.androidcleanarchitecture.business.models.User;
 import com.androidcleanarchitecture.data.db.mapper.UserDbMapper;
+import com.androidcleanarchitecture.data.db.models.AddressEntity;
+import com.androidcleanarchitecture.data.db.models.CompanyEntity;
+import com.androidcleanarchitecture.data.db.models.GeoEntity;
 import com.androidcleanarchitecture.data.db.models.UserEntity;
 import com.androidcleanarchitecture.data.rest.models.UserModel;
 
@@ -44,6 +47,22 @@ public class UserRestMapper {
                         .setBs(userEntity.company.bs == null ? EMPTY_STRING : userEntity.company.bs)
                         .setCatchPhrase(userEntity.company.catchPhrase == null ? EMPTY_STRING : userEntity.company.catchPhrase).build())
                 .build();
+    }
+
+    public static UserEntity mapUserToDb(User user) {
+        return new UserEntity(user.id(),
+                user.name(),
+                user.username(),
+                user.email(),
+                new AddressEntity(user.address().street(),
+                        user.address().suite(),
+                        user.address().city(),
+                        user.address().zipcode(),
+                        new GeoEntity(user.address().geo().lat(), user.address().geo().lng())),
+                user.phone(),
+                user.website(),
+                new CompanyEntity(user.company().name(), user.company().catchPhrase(), user.company().bs()),
+                System.currentTimeMillis());
     }
 
     public static List<User> convert(List<UserModel> userEntities) {

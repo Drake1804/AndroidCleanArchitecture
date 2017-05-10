@@ -8,15 +8,15 @@ import com.google.auto.value.AutoValue;
 @AutoValue
 public abstract class Address {
 
-    abstract String street();
+    public abstract String street();
 
-    abstract String suite();
+    public abstract String suite();
 
-    abstract String city();
+    public abstract String city();
 
-    abstract String zipcode();
+    public abstract String zipcode();
 
-    abstract Geo geo();
+    public abstract Geo geo();
 
     public static Builder builder() {
         return new AutoValue_Address.Builder();

@@ -14,4 +14,9 @@ public class GeoEntity extends RealmObject {
 
     public GeoEntity() {
     }
+
+    public GeoEntity(double lat, double lng) {
+        this.lat = lat;
+        this.lng = lng;
+    }
 }

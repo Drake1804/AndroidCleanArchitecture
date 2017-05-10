@@ -8,8 +8,8 @@ import com.google.auto.value.AutoValue;
 @AutoValue
 public abstract class Geo {
 
-    abstract double lat();
-    abstract double lng();
+    public abstract double lat();
+    public abstract double lng();
 
     public static Builder builder() {
         return new AutoValue_Geo.Builder();
