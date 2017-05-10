@@ -1,11 +1,13 @@
 package com.androidcleanarchitecture.ui.users;
 
 import com.androidcleanarchitecture.business.interactors.IUsersInteractor;
+import com.androidcleanarchitecture.utils.RetryWithDelay;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 /**
  * Created by Pavel.Shkaran on 5/3/2017.
@@ -38,9 +40,10 @@ public class UsersPresenter implements IUsersPresenter {
         usersView.showProgress();
         Disposable loadUsersDisposable = usersInteractor.getUsers()
                 .subscribeOn(Schedulers.io())
+                .retryWhen(new RetryWithDelay(3, 1000))
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(userEntities -> usersView.showUsers(userEntities));
+                .subscribe(userEntities -> usersView.showUsers(userEntities),
+                        throwable -> Timber.e(throwable.getMessage()));
         compositeDisposable.add(loadUsersDisposable);
-
     }
 }

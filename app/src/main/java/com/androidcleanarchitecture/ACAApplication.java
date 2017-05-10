@@ -23,7 +23,6 @@ public class ACAApplication extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-
         applicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this)).build();
     }

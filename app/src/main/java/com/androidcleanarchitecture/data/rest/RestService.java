@@ -3,8 +3,6 @@ package com.androidcleanarchitecture.data.rest;
 import com.androidcleanarchitecture.business.models.User;
 import com.androidcleanarchitecture.data.rest.mapper.UserRestMapper;
 
-import org.mockito.Mock;
-
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -15,7 +13,6 @@ import io.reactivex.Observable;
 
 public class RestService {
 
-    @Mock
     private RestApi restApi;
 
     public RestService(RestApi restApi) {
