@@ -10,6 +10,8 @@ import com.androidcleanarchitecture.di.application.DaggerApplicationComponent;
 import com.androidcleanarchitecture.di.users.UsersComponent;
 import com.androidcleanarchitecture.di.users.UsersModule;
 
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import timber.log.Timber;
 
 /**
@@ -28,6 +30,8 @@ public class ACAApplication extends MultiDexApplication {
         applicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this)).build();
 
+        initRealm();
+
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
         }
@@ -36,6 +40,14 @@ public class ACAApplication extends MultiDexApplication {
     @NonNull
     public static ACAApplication get(@NonNull Context context) {
         return (ACAApplication) context.getApplicationContext();
+    }
+
+    private void initRealm() {
+        Realm.init(getApplicationContext());
+        RealmConfiguration configuration = new RealmConfiguration.Builder()
+                .deleteRealmIfMigrationNeeded()
+                .build();
+        Realm.setDefaultConfiguration(configuration);
     }
 
     public UsersComponent plusUsersComponent() {

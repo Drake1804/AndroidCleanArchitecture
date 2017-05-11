@@ -21,27 +21,28 @@ import io.realm.RealmResults;
 
 public class DbService {
 
-    private Realm realm;
-
-    public DbService(Realm realm) {
-        this.realm = realm;
+    public DbService() {
     }
 
     public Observable<List<User>> getUsers() {
         return Observable.create((ObservableOnSubscribe<List<User>>) observableEmitter -> {
+            Realm realm = Realm.getDefaultInstance();
             RealmResults<UserEntity> userEntities = realm.where(UserEntity.class).findAll();
             List<User> users = new ArrayList<>();
             users.addAll(convert(userEntities));
+            realm.close();
             observableEmitter.onNext(users);
         }).subscribeOn(Schedulers.computation());
     }
 
     public void saveUsers(List<User> users) {
+        Realm realm = Realm.getDefaultInstance();
         RealmList<UserEntity> userEntities = new RealmList<>();
         for(User user : users) {
             userEntities.add(UserRestMapper.mapUserToDb(user));
         }
-        realm.executeTransaction(realm -> realm.copyToRealmOrUpdate(userEntities));
+        realm.executeTransaction(realm1 -> realm1.copyToRealmOrUpdate(userEntities));
+        realm.close();
     }
 
     private List<User> convert(List<UserEntity> userEntities) {
