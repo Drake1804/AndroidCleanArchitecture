@@ -10,6 +10,8 @@ import com.androidcleanarchitecture.di.application.DaggerApplicationComponent;
 import com.androidcleanarchitecture.di.users.UsersComponent;
 import com.androidcleanarchitecture.di.users.UsersModule;
 
+import timber.log.Timber;
+
 /**
  * Created by Pavel.Shkaran on 4/26/2017.
  */
@@ -25,6 +27,10 @@ public class ACAApplication extends MultiDexApplication {
         super.onCreate();
         applicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this)).build();
+
+        if (BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree());
+        }
     }
 
     @NonNull

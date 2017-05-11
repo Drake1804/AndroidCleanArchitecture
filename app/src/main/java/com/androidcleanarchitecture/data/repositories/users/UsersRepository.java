@@ -31,13 +31,9 @@ public class UsersRepository implements IUsersRepository {
         Observable<List<User>> usersRest = restService.getUsers()
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.computation())
-                .map(users -> {
-                    Observable.create(observableEmitter -> {
-                        dbService.saveUsers(users);
-                        observableEmitter.onComplete();
-                    }).subscribe();
-
-                    return users;
+                .flatMap(users -> {
+                    dbService.saveUsers(users);
+                    return Observable.just(users);
                 });
         return Observable.concat(usersDb, usersRest);
     }
