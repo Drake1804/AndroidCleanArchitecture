@@ -25,14 +25,13 @@ public class DbService {
     }
 
     public Observable<List<User>> getUsers() {
-        return Observable.create((ObservableOnSubscribe<List<User>>) observableEmitter -> {
-            Realm realm = Realm.getDefaultInstance();
-            RealmResults<UserEntity> userEntities = realm.where(UserEntity.class).findAll();
-            List<User> users = new ArrayList<>();
-            users.addAll(convert(userEntities));
-            realm.close();
-            observableEmitter.onNext(users);
-        }).subscribeOn(Schedulers.computation());
+        Realm realm = Realm.getDefaultInstance();
+        RealmResults<UserEntity> userEntities = realm.where(UserEntity.class).findAll();
+        List<User> users = new ArrayList<>();
+        users.addAll(convert(userEntities));
+        realm.close();
+
+        return Observable.just(users);
     }
 
     public void saveUsers(List<User> users) {

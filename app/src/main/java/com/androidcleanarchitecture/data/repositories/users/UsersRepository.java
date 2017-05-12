@@ -28,14 +28,13 @@ public class UsersRepository implements IUsersRepository {
 
     @Override
     public Observable<List<User>> getUsers() {
-        Observable<List<User>> usersDb = dbService.getUsers().subscribeOn(Schedulers.computation());
+        Observable<List<User>> usersDb = dbService.getUsers()
+                .filter(users -> users.size() > 0)
+                .subscribeOn(Schedulers.computation());
         Observable<List<User>> usersRest = restService.getUsers()
                 .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.computation())
-                .flatMap(users -> {
-                    dbService.saveUsers(users);
-                    return Observable.just(users);
-                });
+                .doOnNext(users -> dbService.saveUsers(users))
+                .subscribeOn(Schedulers.computation());
         return Observable.concat(usersDb, usersRest);
     }
 }
