@@ -2,13 +2,17 @@ package com.androidcleanarchitecture.data.repositories.users;
 
 import com.androidcleanarchitecture.business.models.User;
 import com.androidcleanarchitecture.data.db.DbService;
+import com.androidcleanarchitecture.data.db.models.UserEntity;
 import com.androidcleanarchitecture.data.rest.RestService;
+import com.androidcleanarchitecture.data.rest.mapper.UserRestMapper;
+import com.androidcleanarchitecture.data.rest.models.UserModel;
 import com.androidcleanarchitecture.di.interfaces.data.IUsersRepository;
 
 import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 
@@ -31,10 +35,14 @@ public class UsersRepository implements IUsersRepository {
         Observable<List<User>> usersDb = dbService.getUsers()
                 .filter(users -> users.size() > 0)
                 .subscribeOn(Schedulers.computation());
+
         Observable<List<User>> usersRest = restService.getUsers()
                 .subscribeOn(Schedulers.io())
+                .filter(userModels -> userModels.size() > 0)
+                .map(UserRestMapper::convert)
                 .doOnNext(users -> dbService.saveUsers(users))
                 .subscribeOn(Schedulers.computation());
+
         return Observable.concat(usersDb, usersRest);
     }
 }

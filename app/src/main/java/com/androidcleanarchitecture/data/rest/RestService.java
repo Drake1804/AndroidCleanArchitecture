@@ -1,7 +1,6 @@
 package com.androidcleanarchitecture.data.rest;
 
-import com.androidcleanarchitecture.business.models.User;
-import com.androidcleanarchitecture.data.rest.mapper.UserRestMapper;
+import com.androidcleanarchitecture.data.rest.models.UserModel;
 
 import java.util.List;
 
@@ -20,11 +19,9 @@ public class RestService {
         this.restApi = restApi;
     }
 
-    public Observable<List<User>> getUsers() {
+    public Observable<List<UserModel>> getUsers() {
         return restApi.getUsers()
-                .subscribeOn(Schedulers.io())
-                .filter(userModels -> userModels.size() > 0)
-                .map(UserRestMapper::convert);
+                .subscribeOn(Schedulers.io());
     }
 
 }

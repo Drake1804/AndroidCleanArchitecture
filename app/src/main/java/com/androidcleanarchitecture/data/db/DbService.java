@@ -14,6 +14,7 @@ import io.reactivex.schedulers.Schedulers;
 import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmResults;
+import timber.log.Timber;
 
 /**
  * Created by drake1804 on 5/9/17.
@@ -29,6 +30,7 @@ public class DbService {
         RealmResults<UserEntity> userEntities = realm.where(UserEntity.class).findAll();
         List<User> users = new ArrayList<>();
         users.addAll(convert(userEntities));
+        Timber.tag(DbService.class.getSimpleName()).d("getUsers: %d", users.size());
         realm.close();
 
         return Observable.just(users);
@@ -40,7 +42,10 @@ public class DbService {
         for(User user : users) {
             userEntities.add(UserRestMapper.mapUserToDb(user));
         }
-        realm.executeTransaction(realm1 -> realm1.copyToRealmOrUpdate(userEntities));
+        realm.executeTransaction(realm1 -> {
+            List<UserEntity> userEntityList = realm1.copyToRealmOrUpdate(userEntities);
+            Timber.tag(DbService.class.getSimpleName()).d("saveUsers: %d", userEntityList.size());
+        });
         realm.close();
     }
 
