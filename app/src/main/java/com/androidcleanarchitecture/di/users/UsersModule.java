@@ -3,10 +3,10 @@ package com.androidcleanarchitecture.di.users;
 import com.androidcleanarchitecture.business.interactors.IUsersInteractor;
 import com.androidcleanarchitecture.business.interactors.UsersInteractor;
 import com.androidcleanarchitecture.data.db.DbService;
-import com.androidcleanarchitecture.data.repositories.users.IUsersRepository;
+import com.androidcleanarchitecture.di.interfaces.data.IUsersRepository;
 import com.androidcleanarchitecture.data.repositories.users.UsersRepository;
 import com.androidcleanarchitecture.data.rest.RestService;
-import com.androidcleanarchitecture.ui.users.IUsersPresenter;
+import com.androidcleanarchitecture.di.interfaces.ui.IUsersPresenter;
 import com.androidcleanarchitecture.ui.users.UsersPresenter;
 
 import dagger.Module;

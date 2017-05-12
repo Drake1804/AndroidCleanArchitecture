@@ -3,6 +3,7 @@ package com.androidcleanarchitecture.data.repositories.users;
 import com.androidcleanarchitecture.business.models.User;
 import com.androidcleanarchitecture.data.db.DbService;
 import com.androidcleanarchitecture.data.rest.RestService;
+import com.androidcleanarchitecture.di.interfaces.data.IUsersRepository;
 
 import java.util.List;
 

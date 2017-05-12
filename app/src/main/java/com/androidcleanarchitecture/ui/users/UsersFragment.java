@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.androidcleanarchitecture.ACAApplication;
 import com.androidcleanarchitecture.R;
 import com.androidcleanarchitecture.business.models.User;
+import com.androidcleanarchitecture.di.interfaces.ui.IUsersPresenter;
 
 import java.util.List;
 

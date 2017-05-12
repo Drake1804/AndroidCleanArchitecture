@@ -1,4 +1,4 @@
-package com.androidcleanarchitecture.data.repositories.users;
+package com.androidcleanarchitecture.di.interfaces.data;
 
 import com.androidcleanarchitecture.business.models.User;
 

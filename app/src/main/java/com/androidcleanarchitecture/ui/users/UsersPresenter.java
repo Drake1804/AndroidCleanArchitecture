@@ -1,6 +1,7 @@
 package com.androidcleanarchitecture.ui.users;
 
 import com.androidcleanarchitecture.business.interactors.IUsersInteractor;
+import com.androidcleanarchitecture.di.interfaces.ui.IUsersPresenter;
 import com.androidcleanarchitecture.utils.RetryWithDelay;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;

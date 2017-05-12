@@ -5,7 +5,7 @@ import com.androidcleanarchitecture.business.models.Address;
 import com.androidcleanarchitecture.business.models.Company;
 import com.androidcleanarchitecture.business.models.Geo;
 import com.androidcleanarchitecture.business.models.User;
-import com.androidcleanarchitecture.data.repositories.users.IUsersRepository;
+import com.androidcleanarchitecture.di.interfaces.data.IUsersRepository;
 
 import org.junit.Before;
 import org.junit.Test;

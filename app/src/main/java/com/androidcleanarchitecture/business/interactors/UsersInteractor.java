@@ -1,7 +1,7 @@
 package com.androidcleanarchitecture.business.interactors;
 
 import com.androidcleanarchitecture.business.models.User;
-import com.androidcleanarchitecture.data.repositories.users.IUsersRepository;
+import com.androidcleanarchitecture.di.interfaces.data.IUsersRepository;
 
 import java.util.List;
 

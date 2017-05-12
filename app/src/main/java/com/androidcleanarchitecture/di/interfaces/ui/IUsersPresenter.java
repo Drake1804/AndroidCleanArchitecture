@@ -1,4 +1,6 @@
-package com.androidcleanarchitecture.ui.users;
+package com.androidcleanarchitecture.di.interfaces.ui;
+
+import com.androidcleanarchitecture.ui.users.IUsersView;
 
 /**
  * Created by Pavel.Shkaran on 5/3/2017.
