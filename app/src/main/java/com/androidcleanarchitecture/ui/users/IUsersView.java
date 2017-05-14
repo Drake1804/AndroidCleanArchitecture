@@ -1,5 +1,7 @@
 package com.androidcleanarchitecture.ui.users;
 
+import android.content.Context;
+
 import com.androidcleanarchitecture.business.models.User;
 
 import java.util.List;
@@ -12,10 +14,14 @@ public interface IUsersView {
 
     void showProgress();
 
-    void showError();
+    void showError(String text);
 
-    void hideProgress();
+    void dismissProgress();
 
     void showUsers(List<User> users);
+
+    Context getContext();
+
+    void showMessage(String message, int length);
 
 }

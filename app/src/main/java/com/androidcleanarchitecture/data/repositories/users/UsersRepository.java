@@ -8,6 +8,7 @@ import com.androidcleanarchitecture.data.rest.mapper.UserRestMapper;
 import com.androidcleanarchitecture.data.rest.models.UserModel;
 import com.androidcleanarchitecture.di.interfaces.data.IUsersRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -37,8 +38,8 @@ public class UsersRepository implements IUsersRepository {
                 .subscribeOn(Schedulers.computation());
 
         Observable<List<User>> usersRest = restService.getUsers()
+                .onErrorReturn(throwable -> new ArrayList<>())
                 .subscribeOn(Schedulers.io())
-                .filter(userModels -> userModels.size() > 0)
                 .map(UserRestMapper::convert)
                 .doOnNext(users -> dbService.saveUsers(users))
                 .subscribeOn(Schedulers.computation());
