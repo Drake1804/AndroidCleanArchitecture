@@ -44,6 +44,13 @@ public class UsersPresenter implements IUsersPresenter {
         usersView.showProgress();
         Disposable loadUsersDisposable = usersInteractor.getUsers()
                 .observeOn(AndroidSchedulers.mainThread())
+                .map(users -> {
+                    if(!NetworkUtil.isNetworkAvailable(usersView.getContext())) {
+                        usersView.showMessage(usersView.getContext().getString(R.string.connect_internet),
+                                Snackbar.LENGTH_SHORT);
+                    }
+                    return users;
+                })
                 .subscribe(userEntities -> {
                             usersView.showUsers(userEntities);
                             usersView.dismissProgress();
@@ -52,10 +59,6 @@ public class UsersPresenter implements IUsersPresenter {
                             Timber.e(throwable.getMessage());
                             usersView.showError(throwable.getMessage());
                             usersView.dismissProgress();
-                            if(!NetworkUtil.isNetworkAvailable(usersView.getContext())) {
-                                usersView.showMessage(usersView.getContext().getString(R.string.connect_internet),
-                                        Snackbar.LENGTH_SHORT);
-                            }
                         });
         compositeDisposable.add(loadUsersDisposable);
     }

@@ -1,19 +1,17 @@
 package com.androidcleanarchitecture.ui.users;
 
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.androidcleanarchitecture.ACAApplication;
 import com.androidcleanarchitecture.R;
@@ -31,10 +29,13 @@ import butterknife.Unbinder;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class UsersFragment extends Fragment implements IUsersView {
+public class UsersFragment extends Fragment implements IUsersView, SwipeRefreshLayout.OnRefreshListener {
 
     @Inject
     IUsersPresenter usersPresenter;
+
+    @BindView(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -44,7 +45,6 @@ public class UsersFragment extends Fragment implements IUsersView {
 
     private Unbinder unbinder;
     private UsersAdapter adapter;
-    private ProgressDialog progressDialog;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,12 +59,11 @@ public class UsersFragment extends Fragment implements IUsersView {
         ButterKnife.bind(this, view);
         unbinder = ButterKnife.bind(this, view);
         usersPresenter.bindView(this);
+        swipeRefreshLayout.setOnRefreshListener(this);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         adapter = new UsersAdapter();
         recyclerView.setAdapter(adapter);
-        progressDialog = new ProgressDialog(getContext(), ProgressDialog.STYLE_SPINNER);
-        progressDialog.setMessage(getContext().getString(R.string.loading));
 
         return view;
     }
@@ -84,7 +83,7 @@ public class UsersFragment extends Fragment implements IUsersView {
 
     @Override
     public void showProgress() {
-        progressDialog.show();
+        swipeRefreshLayout.setRefreshing(true);
     }
 
     @Override
@@ -96,16 +95,23 @@ public class UsersFragment extends Fragment implements IUsersView {
 
     @Override
     public void dismissProgress() {
-        progressDialog.dismiss();
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
     public void showUsers(List<User> users) {
+        recyclerView.setVisibility(View.VISIBLE);
+        emptyView.setVisibility(View.GONE);
         adapter.setUsers(users);
     }
 
     @Override
     public void showMessage(String message, int length) {
         Snackbar.make(getActivity().findViewById(android.R.id.content), message, length).show();
+    }
+
+    @Override
+    public void onRefresh() {
+        usersPresenter.loadUsers();
     }
 }

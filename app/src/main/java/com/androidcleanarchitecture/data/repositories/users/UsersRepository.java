@@ -34,11 +34,11 @@ public class UsersRepository implements IUsersRepository {
     @Override
     public Observable<List<User>> getUsers() {
         Observable<List<User>> usersDb = dbService.getUsers()
-                .filter(users -> users.size() > 0)
                 .subscribeOn(Schedulers.computation());
 
         Observable<List<User>> usersRest = restService.getUsers()
                 .onErrorReturn(throwable -> new ArrayList<>())
+                .filter(userModels -> userModels.size() > 0)
                 .subscribeOn(Schedulers.io())
                 .map(UserRestMapper::convert)
                 .doOnNext(users -> dbService.saveUsers(users))
