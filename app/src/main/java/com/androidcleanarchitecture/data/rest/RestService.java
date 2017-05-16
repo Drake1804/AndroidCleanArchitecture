@@ -23,5 +23,4 @@ public class RestService {
         return restApi.getUsers()
                 .subscribeOn(Schedulers.io());
     }
-
 }

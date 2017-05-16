@@ -1,11 +1,9 @@
 package com.androidcleanarchitecture.ui.users;
 
-import android.support.design.widget.Snackbar;
-import android.widget.Toast;
-
 import com.androidcleanarchitecture.R;
 import com.androidcleanarchitecture.business.interactors.IUsersInteractor;
 import com.androidcleanarchitecture.di.interfaces.ui.IUsersPresenter;
+import com.androidcleanarchitecture.utils.Constants;
 import com.androidcleanarchitecture.utils.NetworkUtil;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -45,9 +43,9 @@ public class UsersPresenter implements IUsersPresenter {
         Disposable loadUsersDisposable = usersInteractor.getUsers()
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(users -> {
-                    if(!NetworkUtil.isNetworkAvailable(usersView.getContext())) {
+                    if (!NetworkUtil.isNetworkAvailable(usersView.getContext())) {
                         usersView.showMessage(usersView.getContext().getString(R.string.connect_internet),
-                                Snackbar.LENGTH_SHORT);
+                                Constants.LENGTH_LONG);
                     }
                     return users;
                 })
